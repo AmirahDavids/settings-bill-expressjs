@@ -1,6 +1,7 @@
 const express = require("express");
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 const SettingsBill = require('./settingsBill');
 
 
@@ -10,7 +11,12 @@ const app = express();
 const settingsBill = SettingsBill();
 
 app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        "momentDate": function () {
+          return moment(this.timestamp).fromNow()
+        }
+      }
 }));
 app.set('view engine', 'handlebars');
 
@@ -20,17 +26,19 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
+
+
 app.get('/', function (req, res) {
     res.render('index', {
         "data": settingsBill.settingsBillTotals(),
         "values": settingsBill.settingsBillCosts(),
-        "color":settingsBill.getColorString()
+        "color": settingsBill.getColorString()
     })
 });
 
 
 app.post('/settings', function (req, res) {
-    console.log(req.body);
+
 
     settingsBill.updateValues({
         callCost: req.body.callCost,

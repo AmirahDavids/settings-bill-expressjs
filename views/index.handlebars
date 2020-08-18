@@ -21,11 +21,11 @@
                 <h5>Bill type</h5>
                 <form action="/action" method="post">
                     <label class="">
-                        <input type="radio" name="actionType" class="billItemTypeWithSettings" value="call">
+                        <input type="radio" name="actionType" class="billItemTypeWithSettings" value="call" required>
                         <span class="label-body">Call</span>
                     </label>
                     <label class="">
-                        <input type="radio" name="actionType" class="billItemTypeWithSettings" value="sms">
+                        <input type="radio" name="actionType" class="billItemTypeWithSettings" value="sms" required>
                         <span class="label-body">SMS</span>
                     </label>
                     <button class="button-primary" type="submit">Add</button>
@@ -58,16 +58,17 @@
                 <form action="/settings" method="POST">
                     <h5>Settings</h5>
                     <label for="exampleEmailInput">Call cost</label>
-                    <input class="u-full-width callCostSetting" type="number" name="callCost"
+                    <input class="u-full-width callCostSetting" type="number" name="callCost" step=".01"
                         value="{{values.callCost}}">
                     <label for="exampleEmailInput">SMS cost</label>
-                    <input class="u-full-width smsCostSetting" type="number" name="smsCost" value="{{values.smsCost}}">
+                    <input class="u-full-width smsCostSetting" type="number" name="smsCost" step=".01"
+                        value="{{values.smsCost}}">
                     <label for="">Warning level</label>
-                    <input class="u-full-width warningLevelSetting " type="number" name="warningLevel"
+                    <input class="u-full-width warningLevelSetting " type="number" name="warningLevel" step=".01"
                         value="{{values.warningLevel}}">
 
                     <label for="">Critical level</label>
-                    <input class="u-full-width criticalLevelSetting" type="number" name="criticalLevel"
+                    <input class="u-full-width criticalLevelSetting" type="number" name="criticalLevel" step=".01"
                         value="{{values.criticalLevel}}">
                     <button class="button-primary updateSettings" type="submit">Update
                         settings</button>

@@ -1,3 +1,4 @@
+
 module.exports = function SettingsBill() {
 
     var callTotalSettings = 0.00;
@@ -38,8 +39,8 @@ module.exports = function SettingsBill() {
         if (type != undefined && cost != undefined) {
             var action = {
                 'type': type,
-                'cost': cost,
-                'timestamp': new Date()
+                'cost': cost.toFixed(2),
+                'timestamp': Date.now()
             };
             actionsList.push(action)
             return true;
