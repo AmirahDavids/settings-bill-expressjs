@@ -48,7 +48,7 @@ module.exports = function SettingsBill() {
     }
 
     function addFunction(action) {
-        if (isCriticalLevelReached(action)) {
+        if (!isCriticalLevelReached(action)) {
             switch (action) {
                 case "call":
                     totalSettings += callCostValue;
@@ -72,9 +72,9 @@ module.exports = function SettingsBill() {
     function isCriticalLevelReached(type) {
         switch (type) {
             case "call":
-                return (totalSettings + callCostValue) >= criticalLevelValue;                
+                return (totalSettings + callCostValue) > criticalLevelValue;                
             case "sms":
-                return (totalSettings + smsCostValue) >= criticalLevelValue;
+                return (totalSettings + smsCostValue) > criticalLevelValue;
             default:
                 return false;
         }

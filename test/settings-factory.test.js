@@ -34,37 +34,37 @@ describe("The updateValues function", function () {
 
 describe("The addFunction method", function () {
     it("should return true if call was added", function () {
-
+        var factoryOne = factory();
         var input = {
             callCost: "1.25",
             smsCost: "0.25",
             warningLevel: "7.25",
             criticalLevel: "10.25"
         }
-        factory().updateValues(input)
-        assert.equal(true, factory().addFunction("call"))
+        factoryOne.updateValues(input)
+        assert.equal(true, factoryOne.addFunction("call"))
     });
     it("should return true if sms was added", function () {
-
+        var factoryOne = factory();
         var input = {
             callCost: "1.25",
             smsCost: "0.25",
             warningLevel: "7.25",
             criticalLevel: "10.25"
         }
-        factory().updateValues(input)
-        assert.equal(true, factory().addFunction("sms"))
+        factoryOne.updateValues(input)
+        assert.equal(true, factoryOne.addFunction("sms"))
     });
     it("should return false if action is not call or sms", function () {
-
+        var factoryOne = factory();
         var input = {
             callCost: "1.25",
             smsCost: "0.25",
             warningLevel: "7.25",
             criticalLevel: "10.25"
         }
-        factory().updateValues(input)
-        assert.equal(false, factory().addFunction("data"))
+        factoryOne.updateValues(input)
+        assert.equal(false, factoryOne.addFunction("data"))
     });
 });
 
@@ -164,15 +164,16 @@ describe("The getColorString (settings widget)", function () {
         assert.equal("", Instance.getColorString())
     });
     it("should return appropriate color string", function () {
+        var fact = factory();
 
         var input = {
-            callCost: "1.25",
+            callCost: "1.00",
             smsCost: "0.25",
-            warningLevel: "7.25",
-            criticalLevel: "10.25"
+            warningLevel: "7.00",
+            criticalLevel: "10.00"
         }
-        var fact = factory();
         fact.updateValues(input)
+        
         fact.addFunction("call")
         fact.addFunction("call")
         fact.addFunction("call")
@@ -187,6 +188,13 @@ describe("The getColorString (settings widget)", function () {
         fact.addFunction("call")
 
         assert.equal("danger", fact.getColorString())
+
+        var totals = fact.settingsBillTotals()
+        assert.deepEqual({
+            grand: 10.00,
+            call: 10.00,
+            sms: 0.00
+        }, totals)
     });
     it("should return appropriate color string", function () {
 
@@ -220,7 +228,7 @@ describe("The recordAction", function () {
         var Instance = factory();
 
         var expected = false;
-        var actual = Instance.recordAction(); 
+        var actual = Instance.recordAction();
 
         assert.equal(expected, actual)
     });
@@ -229,7 +237,7 @@ describe("The recordAction", function () {
         var Instance = factory();
 
         var expected = true;
-        var actual = Instance.recordAction("call",5.00); 
+        var actual = Instance.recordAction("call", 5.00);
 
         assert.equal(expected, actual)
     });
@@ -238,10 +246,8 @@ describe("The recordAction", function () {
         var Instance = factory();
 
         var expected = true;
-        var actual = Instance.recordAction("sms",3.00); 
+        var actual = Instance.recordAction("sms", 3.00);
 
         assert.equal(expected, actual)
     });
 });
-
-
